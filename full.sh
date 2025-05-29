@@ -1,8 +1,9 @@
 #!/bin/bash
 # Подсказки:
 # 1) Активировать скрипт через . так он не оставит следов и отчистит историю
-if [ "$HOSTNAME" = isp ]; then
+history -c 
 set -o history
+if [ "$HOSTNAME" = isp ]; then
 apt-get update
 apt-get install nano -y 
 mkdir /etc/net/ifaces/ens19
