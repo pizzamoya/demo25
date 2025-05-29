@@ -26,6 +26,7 @@ systemctl restart sshd
 systemctl disable --now bind
 apt-get update
 apt-get install -y dnsmasq
+ set +o history
 cat <<EOF > /etc/dnsmasq.conf
 no-resolv
 no-poll
@@ -44,6 +45,7 @@ address=/br-srv.au-team.irpo/192.168.0.30
 cname=moodle.au-team.irpo,hq-rtr.au-team.irpo
 cname=wiki.au-team.irpo,hq-rtr.au-team.irpo
 EOF
+ set -o history
 systemctl restart dnsmasq
 
 
