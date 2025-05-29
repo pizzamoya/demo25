@@ -24,3 +24,11 @@ sed 's/#MaxAuthTries 6/MaxAuthTries 2/' /etc/openssh/sshd_config
 sed '105i Banner /etc/openssh/banner /etc/openssh/sshd_config
 echo "Authorized access only" > /etc/openssh/banner
 systemctl restart sshd
+apt-get install -y chrony
+ set +o history
+ cat <<EOF > /etc/chrony.conf
+# Use public server from the pool
+# Please consider joining the pool
+server 172.16.5.1
+EOF
+ set -o history
