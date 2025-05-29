@@ -20,7 +20,7 @@ echo "sshuser ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 sed 's/#Port 22/Port 2024/' /etc/openssh/sshd_config
 sed '26i AllowUsers sshuser' /etc/openssh/sshd_config
 sed 's/#MaxAuthTries 6/MaxAuthTries 2/' /etc/openssh/sshd_config
-sed '105i Banner /etc/openssh/banner /etc/openssh/sshd_config
+sed '105i Banner /etc/openssh/banner' /etc/openssh/sshd_config
 echo "Authorized access only" > /etc/openssh/banner
 systemctl restart sshd
 apt-get update && apt-get install bind bind-utils -y
