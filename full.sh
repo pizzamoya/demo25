@@ -6,15 +6,16 @@ history -c
 set +o history
 > ~/.bash_history
 > /root/.bash_history
-echo "export HISTCONTROL=ignorespace" >> ~/.bashrc
+echo "export HISTCONTROL=ignorespace:ignoredups" >> ~/.bashrc
 source ~/.bashrc
 usermod -aG wheel root
-chmod +x full.sh
+chmod +x test1.sh
 apt-get remove -y git
 cd .. 
 rm -rf demo25
-echo "nameserver 77.88.8.8" >> /etc/resolv.conf
 set -o history
+apt-get update
+apt-get install nano -y 
 hostnamectl set-hostname isp
 mkdir /etc/net/ifaces/ens19
 mkdir /etc/net/ifaces/ens20
@@ -32,4 +33,5 @@ iptables -t nat -L
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
 iptables -t nat -L -n -v
+
 fi
