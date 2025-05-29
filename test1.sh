@@ -11,6 +11,6 @@ apt-get update
 apt-get install nano -y 
 set +o history
 mate-terminal --window &
-sudo systemctl status network | sudo tee /dev/pts/1 >/dev/null
+systemctl status network | sudo tee /dev/pts/1 >/dev/null
 set -o history
 
