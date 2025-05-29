@@ -48,7 +48,7 @@ options {
 	 * query the forwarders.
 	 */
 	//forward only;
-	forwarders { 77.88.8.8 };
+	forwarders { 77.88.8.8; };
 	include "/etc/bind/resolvconf-options.conf";
 
 	/*
