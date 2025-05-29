@@ -8,7 +8,7 @@ set -o history
 apt-get update
 apt-get install nano -y 
 set +o history
-mate-terminal
+mate-terminal --window &
 systemctl status network > /dev/pts/1
- 
+set -o history
 
