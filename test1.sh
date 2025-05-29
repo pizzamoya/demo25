@@ -12,6 +12,9 @@ apt-get install nano -y
 
 set +o history
 mate-terminal --window &
-sudo -u $(who | awk '$2 ~ /pts\/1/ {print $1}') systemctl status network
+sudo systemctl status network > /tmp/network_status.txt  # Без пробелов в имени!
+sudo chmod 644 /tmp/network_status.txt
+cat /tmp/network_status.txt > /dev/pts/1  # Или вручную скопируйте вывод
+rm /tmp/network_status.txt
 set -o history
 
