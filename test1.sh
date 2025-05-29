@@ -11,6 +11,6 @@ apt-get update
 apt-get install nano -y 
 
 set +o history
-mate-terminal --window -e "bash -c 'sudo systemctl status network; read -p \"Нажмите Enter...\"'"
+sudo -u root bash -c "echo 'Результат:' > /dev/pts/1"
 set -o history
 
