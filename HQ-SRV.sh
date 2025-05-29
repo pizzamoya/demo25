@@ -50,6 +50,7 @@ cat <<EOF > /etc/chrony.conf
 # Use public server from the pool
 # Please consider joining the pool
 server 172.16.4.1
+EOF
  set -o history
 systemctl restart dnsmasq
 systemctl restart chronyd
