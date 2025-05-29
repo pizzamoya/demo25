@@ -1,8 +1,8 @@
 #!/bin/bash
 # Подсказки:
 # 1) Активировать скрипт через . так он не оставит следов и отчистит историю
-
 history -c 
+if [ "$HOSTNAME" = isp ]; then
 set +o history
 > ~/.bash_history
 > /root/.bash_history
@@ -33,4 +33,4 @@ iptables -t nat -L
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
 iptables -t nat -L -n -v
-
+fi
