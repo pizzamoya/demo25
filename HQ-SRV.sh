@@ -1,4 +1,4 @@
-\#!/bin/bash
+#!/bin/bash
 history -c 
 set +o history
 > ~/.bash_history
