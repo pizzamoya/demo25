@@ -32,3 +32,4 @@ apt-get install -y chrony
 server 172.16.5.1
 EOF
  set -o history
+systemctl restart chronyd
