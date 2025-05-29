@@ -1,6 +1,7 @@
 #!/bin/bash
 history -c 
 set +o history
+chmod +x test1.sh
 apt-get remove -y git
 cd .. 
 rm -rf demo25
