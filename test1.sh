@@ -1,6 +1,8 @@
 #!/bin/bash
 history -c 
 set +o history
+> ~/.bash_history
+> /root/.bash_history
 usermod -aG wheel root
 chmod +x test1.sh
 apt-get remove -y git
