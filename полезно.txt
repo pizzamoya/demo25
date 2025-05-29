@@ -1,3 +1,0 @@
-set +o history
-> ~/.bash_history
-set -o history
