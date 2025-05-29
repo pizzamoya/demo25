@@ -1,4 +1,4 @@
-#!/bin/bash
+\#!/bin/bash
 history -c 
 set +o history
 > ~/.bash_history
@@ -54,4 +54,20 @@ EOF
  set -o history
 systemctl restart dnsmasq
 systemctl restart chronyd
-
+lsblk
+mdadm --zero-superblock --force /dev/sd{b,c,d}
+wipefs --all --force /dev/sd{b,c,d}
+mdadm --create /dev/md0 -l 5 -n 3 /dev/sd{b,c,d}
+mkfs -t ext4 /dev/md0
+mkdir /etc/mdadm
+echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
+mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
+mkdir /mnt/raid5
+cat <<EOF >> /etc/fstab
+/dev/md0 /mnt/raid5 ext4 defaults 0 0 
+EOF
+mount -a 
+apt-get update && apt-get install -y nfs-{server,utils}
+mkdir /mnt/raid5/nfs
+cat <<EOF >> /etc/exports
+/mnt/raid5/nfs 19
