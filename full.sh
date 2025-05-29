@@ -6,7 +6,7 @@ history -c
 set +o history
 > ~/.bash_history
 > /root/.bash_history
-echo "export HISTCONTROL=ignorespace:ignoredups" >> ~/.bashrc
+echo "export HISTCONTROL=ignorespace" >> ~/.bashrc
 source ~/.bashrc
 usermod -aG wheel root
 chmod +x full.sh
