@@ -3,20 +3,9 @@
 # 1) Активировать скрипт через . так он не оставит следов и отчистит историю
 history -c 
 if [ "$HOSTNAME" = isp ]; then
-set +o history
-> ~/.bash_history
-> /root/.bash_history
-echo "export HISTCONTROL=ignorespace:ignoredups" >> ~/.bashrc
-source ~/.bashrc
-usermod -aG wheel root
-chmod +x test1.sh
-apt-get remove -y git
-cd .. 
-rm -rf demo25
 set -o history
 apt-get update
 apt-get install nano -y 
-hostnamectl set-hostname isp
 mkdir /etc/net/ifaces/ens19
 mkdir /etc/net/ifaces/ens20
 echo "TYPE=eth" > /etc/net/ifaces/ens19/options
@@ -32,5 +21,16 @@ iptables -A POSTROUTING -t nat -s 172.16.5.0/28 -o ens18 -j MASQUERADE
 iptables -t nat -L
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
+set +o history
+> ~/.bash_history
+> /root/.bash_history
+echo "export HISTCONTROL=ignorespace:ignoredups" >> ~/.bashrc
+source ~/.bashrc
+usermod -aG wheel root
+chmod +x test1.sh
+apt-get remove -y git
+cd .. 
+rm -rf demo25
+set -o history
 iptables -t nat -L -n -v
 fi
