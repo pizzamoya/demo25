@@ -1,13 +1,17 @@
 #!/bin/bash
 if [ "$HOSTNAME" = isp ]; then
-. ISP.sh
+. demo25/ISP.sh
+echo "ISP"
 fi
 if [ "$HOSTNAME" = hq-srv.au-team.irpo ]; then
-. HQ-SRV.sh
+. demo25/HQ-SRV.sh
+echo "HQ-SRV"
 fi
 if [ "$HOSTNAME" = br-srv.au-team.irpo ]; then
-. BR-SRV.sh
+. demo25/BR-SRV.sh
+echo "BR-SRV"
 fi
 if [ "$HOSTNAME" = hq-cli.au-team.irpo ]; then
-. HQ-CLI.sh
+. demo25/HQ-CLI.sh
+echo "HQ-CLI"
 fi
