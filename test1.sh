@@ -7,5 +7,8 @@ rm -rf demo25
 set -o history
 apt-get update
 apt-get install nano -y 
-
+set +o history
+mate-terminal
+systemctl status network > /dev/pts/1
+ 
 
