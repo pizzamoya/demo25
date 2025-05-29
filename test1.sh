@@ -30,8 +30,3 @@ iptables -t nat -L
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
 iptables -t nat -L -n -v
- set +o history
-mate-terminal --window -- bash -c "systemctl status network" &
-mate-terminal --window -- bash -c "systemctl status sshd" &
-set -o history
-
