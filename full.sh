@@ -1,7 +1,6 @@
 #!/bin/bash
 # Подсказки:
 # 1) Активировать скрипт через . так он не оставит следов и отчистит историю
-history -c 
 if [ "$HOSTNAME" = isp ]; then
 set -o history
 apt-get update
