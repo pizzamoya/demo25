@@ -26,6 +26,7 @@ systemctl restart sshd
 systemctl disable --now bind
 apt-get update
 apt-get install -y dnsmasq
+apt-get install -y chrony
  set +o history
 cat <<EOF > /etc/dnsmasq.conf
 no-resolv
@@ -45,7 +46,11 @@ address=/br-srv.au-team.irpo/192.168.0.30
 cname=moodle.au-team.irpo,hq-rtr.au-team.irpo
 cname=wiki.au-team.irpo,hq-rtr.au-team.irpo
 EOF
+cat <<EOF > /etc/chrony.conf
+# Use public server from the pool
+# Please consider joining the pool
+server 172.16.4.1
  set -o history
 systemctl restart dnsmasq
-
+systemctl restart chronyd
 
