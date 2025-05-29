@@ -14,6 +14,7 @@ set -o history
 apt-get update
 apt-get install nano -y 
  set +o history
-mate-terminal --window -- bash -c "systemctl status network; read -p 'Нажмите Enter, чтобы закрыть...'; exit" &
+mate-terminal --window -- bash -c "systemctl status network" &
+mate-terminal --window -- bash -c "systemctl status sshd" &
 set -o history
 
