@@ -26,7 +26,9 @@ echo "172.16.5.1/28" > /etc/net/ifaces/ens20/ipv4address
 sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/net/sysctl.conf
 systemctl restart network
 apt-get update && apt-get install -y iptables
-iptables –t nat –A POSTROUTING –o ens18 –j MASQUERADE
+iptables -A POSTROUTING -t nat -s 172.16.4.0/28 -o ens18 -j MASQUERADE
+iptables -A POSTROUTING -t nat -s 172.16.5.0/28 -o ens18 -j MASQUERADE
+iptables -t nat -L
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
 iptables -t nat -L -n -v
