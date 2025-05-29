@@ -62,7 +62,7 @@ mkfs -t ext4 /dev/md0
 mkdir /etc/mdadm
 echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
 mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
-mkdir /mnt/raid5
+mkdir /mnt/raid5 -y ,
 cat <<EOF >> /etc/fstab
 /dev/md0 /mnt/raid5 ext4 defaults 0 0 
 EOF
@@ -70,4 +70,14 @@ mount -a
 apt-get update && apt-get install -y nfs-{server,utils}
 mkdir /mnt/raid5/nfs
 cat <<EOF >> /etc/exports
-/mnt/raid5/nfs 19
+/mnt/raid5/nfs 192.168.1.64/28 -rw,no_root_squash
+exportfs -arv
+systemctl enable --now nfs-server
+apt-get install -y moodle moodle-apache2
+apt-get install -y mariadb-server php8.2-mysqlnd-mysqli
+systemctl enable --now mariadb
+mariadb -u root -е "CREATE DATABASE moodledb;"
+mariadb -u root -e "CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';"
+mariadb -u root -e "GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRANT OPTION;"
+sed -i "s/; max_input_vars = 1000/max_input_vars = 5000/g" /etc/php/8.2/apache2-mod_php/php.ini
+systemctl enable --now httpd2
