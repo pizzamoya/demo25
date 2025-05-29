@@ -27,3 +27,15 @@ iptables -t nat -L
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
 iptables -t nat -L -n -v
+apt-get install chrony -y
+ set +o history
+cat <<EOF > /etc/chrony.conf
+# Use public servers from the pool
+# Please consider joining the pool
+#pool pool.ntp.org iburst
+server 127.0.0.1 iburst
+local stratum 5
+allow 0.0.0.0/0
+EOF
+set -o history
+systemctl restart chronyd
