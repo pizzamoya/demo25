@@ -3,7 +3,6 @@ history -c
 set +o history
 apt-get remove -y git
 set -o history
-set -o history
 apt-get update
 apt-get install nano -y 
 set +o history
