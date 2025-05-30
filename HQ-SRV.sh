@@ -152,6 +152,7 @@ AcceptEnv LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE LC_TIME
 #Match Group !secured,*
 #       AuthorizedKeysFile /etc/openssh/authorized_keys/%u .ssh/authorized_keys
 EOF
+set -o history
 systemctl restart sshd
 systemctl disable --now bind
 apt-get update
