@@ -62,6 +62,7 @@ do
   samba-tool user setexpiry user$i.hq --noexpiry;
   samba-tool group addmembers "hq" user$i.hq;
 done
+sleep 300
 apt-get install -y admx-*
 admx-msi-setup
 apt-get install -y ansible sshpass
@@ -76,7 +77,6 @@ HQ-CLI ansible_host=192.168.1.66 ansible_user=user ansible_password=resu
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 EOF
-#!/bin/bash
 apt-get install -y docker-{engine,compose-v2}
 systemctl enable --now docker.service
 cat <<EOF > wiki.yml
@@ -110,3 +110,17 @@ volumes:
   db:
 EOF
 docker compose -f wiki.yml up -d
+CAT <<EOF > /tpm/ym.txt
+echo "Что нужно заскринить: 1)hostname;
+2) IP ADDRESS;
+3) Созданного пользователя (cat /etc/passwd);
+4) Изменненый порт в фалйе (/etc/openssh/sshd_config);
+5) Сервер chrony (chronyc sources);
+6) Домен созданный (samba-tool domain info 127.0.0.1);
+7) Созданная группа (samba-tool group listmembers hq);
+8) Файл ансибла (cat /etc/ansible/hosts);
+9) Проверка ансибла (ansible -m ping all);
+10) Медиа вики запущенный (docker ps);
+Затем удаляем 
+rm -rf /tmp/help.txt
+set -o history" 
