@@ -199,36 +199,17 @@ echo "/raid5/nfs 192.168.1.64/28(rw,no_root_squash)" >> /etc/exports
 exportfs -arv
 systemctl enable --now nfs-server
 
-# Установка необходимых пакетов Moodle и Apache
-echo "Установка moodle и зависимостей..."
-apt-get install -y moodle moodle.apache2
-
-# Установка MariaDB и PHP модуля для MySQL
-echo "Установка MariaDB и PHP модуля..."
-apt-get install -y mariadb-server php8.2-mysqlnd-mysql
-
-# Включение и добавление MariaDB в автозагрузку
-echo "Настройка службы MariaDB..."
+apt-get install -y moodle moodle-apache2
+apt-get install -y mariadb-server php8.2-mysqlnd-mysqli
 systemctl enable --now mariadb
-
-# Создание базы данных и пользователя
-echo "Создание базы данных и пользователя..."
-mysql -u root <<-EOF
+cat <<EOF > /tmp/modle.txt
 CREATE DATABASE moodledb;
-CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@sswOrd';
+CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';
 GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
 EOF
-
-# Редактирование параметра max_input_vars
-echo "Настройка параметров PHP..."
-sed -i "s/; max_input_vars = 1000/max_input_vars = 5000/g" /etc/php/8.2/apache2-mod_php/php.ini
-
-# Включение и добавление Apache в автозагрузку
-echo "Настройка службы Apache..."
+cat /tmp/modle.txt
+mariadb -u root
 systemctl enable --now httpd2
-
-echo "Установка и настройка завершена!"
  set +o history
  cat <<EOF > /tmp/ym.txt
 "Что нужно заскринить:
