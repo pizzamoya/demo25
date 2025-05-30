@@ -186,7 +186,7 @@ EOF
 systemctl restart dnsmasq
 systemctl restart chronyd
 apt-get update && apt-get install -y mdadm
-mdadm --create --verbose /dev/md0 -1 5 -n 3 /dev/sd{b,c,d}
+mdadm --create --verbose /dev/md0 -l 5 -n 3 /dev/sd{b,c,d}
 mdadm --detail --scan --verbose | tee -a /etc/mdadm.conf
 mkfs.ext4 /dev/md0
 echo "/dev/md0        /raid5  ext4    defaults        0       0" >> /etc/fstab
