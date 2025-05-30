@@ -71,6 +71,7 @@ apt-get update && apt-get install -y nfs-{server,utils}
 mkdir /mnt/raid5/nfs
 cat <<EOF >> /etc/exports
 /mnt/raid5/nfs 192.168.1.64/28 -rw,no_root_squash
+EOF
 exportfs -arv
 systemctl enable --now nfs-server
 apt-get install -y moodle moodle-apache2
