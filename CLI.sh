@@ -37,7 +37,7 @@ sed '35i Cmnd_Alias   SHELLCMD = /usr/bin/id, /bin/cat, /bin/grep' /etc/sudoers
 sed '102i WHEEL_USERS ALL=(ALL:ALL) SHELLCMD' /etc/sudoers
 apt-get install -y admx-*
 admx-msi-setup
-sleep 240]
+sleep 240
 gpupdate -f 
 apt-get update && apt-get install -y nfs-{utils,clients}
 mkdir /mnt/nfs 
@@ -46,3 +46,15 @@ echo "192.168.1.62:/raid5/nfs    /mnt/nfs    nfs    defaults    0    0" >> /etc/
 mount -av
 df -h
 apt-get update && apt-get install -y yandex-browser-stable
+set +o history
+cat <<EOF > /tmp/ym.txt
+"Что нужно заскринить:
+1)hostname;
+2)ip addres (dhcp);
+3) Настроенную сеть и айпишники;
+4) Правила в iptables (# iptables -t nat -L -n -V);
+5) Сервер chrony (chronyc clients);
+Затем удаляем 
+rm -rf /tmp/help.txt
+set -o history"
+EOF
