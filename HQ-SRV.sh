@@ -185,26 +185,20 @@ EOF
  set -o history
 systemctl restart dnsmasq
 systemctl restart chronyd
-lsblk
-mdadm --zero-superblock --force /dev/sd{b,c,d}
-wipefs --all --force /dev/sd{b,c,d}
-mdadm --create /dev/md0 -l 5 -n 3 /dev/sd{b,c,d}
-mkfs -t ext4 /dev/md0
-mkdir /etc/mdadm
-echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
-mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
-mkdir /mnt/raid5 -y ,
-cat <<EOF >> /etc/fstab
-/dev/md0 /mnt/raid5 ext4 defaults 0 0 
-EOF
-mount -a 
-apt-get update && apt-get install -y nfs-{server,utils}
-mkdir /mnt/raid5/nfs
-cat <<EOF >> /etc/exports
-/mnt/raid5/nfs 192.168.1.64/28 -rw,no_root_squash
-EOF
+apt-get update && apt-get install -y mdadm
+mdadm --create --verbose /dev/md0 -1 5 -n 3 /dev/sd{b,c,d}
+mdadm --detail --scan --verbose | tee -a /etc/mdadm.conf
+mkfs.ext4 /dev/md0
+echo "/dev/md0        /raid5  ext4    defaults        0       0" >> /etc/fstab
+mkdir /raid5
+mount -av
+apt-get install -y nfs-{server,utils}
+mkdir /raid5/nfs
+chmod 777 /raid5/nfs
+echo "/raid5/nfs 192.168.1.64/28(rw,no_root_squash)" >> /etc/exports
 exportfs -arv
 systemctl enable --now nfs-server
+
 apt-get install -y moodle moodle-apache2
 apt-get install -y mariadb-server php8.2-mysqlnd-mysqli
 systemctl enable --now mariadb
