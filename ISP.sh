@@ -40,7 +40,7 @@ EOF
 set -o history
 systemctl restart chronyd
  set +o history
-echo "Что нужно заскринить: 1)hostname; 2) Включенный форвардинг(etc/net/sysctl.conf); 3) Настроенную сеть и айпишники; 4) Правила в iptables (# iptables -t nat -L -n -V); 5) Сервер chrony (chronyc clients); >> /tmp/help.txt
+echo "Что нужно заскринить: 1)hostname; 2) Включенный форвардинг(etc/net/sysctl.conf); 3) Настроенную сеть и айпишники; 4) Правила в iptables (# iptables -t nat -L -n -V); 5) Сервер chrony (chronyc clients);" >> /tmp/help.txt
 sleep 1000
 rm -rf /tmp/help.txt
 set -o history
