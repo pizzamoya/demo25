@@ -82,6 +82,18 @@ mariadb -u root -e "GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRAN
 sed -i "s/; max_input_vars = 1000/max_input_vars = 5000/g" /etc/php/8.2/apache2-mod_php/php.ini
 systemctl enable --now httpd2
  set +o history
-echo "Что нужно заскринить: 1)hostname; 2) Ip address; 3) Созданного пользователя; 4) Измененный порт 2024 (/etc/openssh/sshd_config); 5) Созданный raid массив(df -h); 6) Отформатированный раздел ext4 (cat /etc/fstab); 7)Созданный dns сервер (пингануть все машины по доменному имени); 8) Подключение к chony(chronyc sources); 9) Созданную базу данных ( зайти в бд (mariadb -u root, SHOW DATABASES); Затем удаляем 
+ cat <<EOF > /tmp/ym.txt
+"Что нужно заскринить:
+1)hostname;
+2) Ip address;
+3) Созданного пользователя;
+4) Измененный порт 2024 (/etc/openssh/sshd_config);
+5) Созданный raid массив(df -h);
+6) Отформатированный раздел ext4 (cat /etc/fstab);
+7)Созданный dns сервер (пингануть все машины по доменному имени);
+8) Подключение к chony(chronyc sources);
+9) Созданную базу данных ( зайти в бд (mariadb -u root, SHOW DATABASES);
+Затем удаляем 
 rm -rf /tmp/help.txt
-set -o history" >> /tmp/help.txt
+set -o history" 
+EOF 
