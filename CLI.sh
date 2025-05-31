@@ -36,7 +36,6 @@ sed '35i Cmnd_Alias   SHELLCMD = /usr/bin/id, /bin/cat, /bin/grep' /etc/sudoers
 sed '102i WHEEL_USERS ALL=(ALL:ALL) SHELLCMD' /etc/sudoers
 apt-get install -y admx-*
 admx-msi-setup
-sleep 240
 apt-get update && apt-get install -y nfs-{utils,clients}
 mkdir /mnt/nfs 
 chmod 777 /mnt/nfs 
