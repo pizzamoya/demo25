@@ -157,7 +157,6 @@ EOF
  set -o history
 systemctl restart chronyd
 apt-get update && apt-get install -y gpupdate
-sleep 240
 gpupdate-setup enable
 apt-get install -y admc
 apt-get install -y gpui
