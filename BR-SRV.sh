@@ -201,7 +201,9 @@ ansible_python_interpreter=/usr/bin/python3
 EOF
 apt-get install -y docker-{engine,compose-v2}
 systemctl enable --now docker.service
-cat <<EOF > wiki.yml/$pwd
+mkdir /root/docker
+cd /root/docker
+cat <<EOF > /root/docker/wiki.yml
 services:
   Mediawiki:
     container_name: wiki
@@ -232,7 +234,7 @@ volumes:
   db:
 EOF
 docker compose -f wiki.yml up -d
-CAT <<EOF > /tmp/ym.txt
+cat <<EOF > /tmp/ym.txt
 После настройки на hq -cli ввести это чтобы применить групповые политики
 admx-msi-setup
 echo "Что нужно заскринить: 1)hostname;
