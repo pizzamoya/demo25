@@ -6,7 +6,6 @@ set +o history
 echo "export HISTCONTROL=ignorespace:ignoredups" >> ~/.bashrc
 source ~/.bashrc
 usermod -aG wheel root
-chmod +x test1.sh
 apt-get remove -y git
 cd .. 
 rm -rf demo25
@@ -202,13 +201,13 @@ systemctl enable --now nfs-server
 apt-get install -y moodle moodle-apache2
 apt-get install -y mariadb-server php8.2-mysqlnd-mysqli
 systemctl enable --now mariadb
-cat <<EOF > /tmp/modle.txt
-CREATE DATABASE moodledb;
-CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';
-GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRANT OPTION;
-EOF
-cat /tmp/modle.txt
-mariadb -u root
+sleep 5
+mariadb -u root -e "CREATE DATABASE moodledb;"
+sleep 5
+mariadb -u root -e "CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';"
+sleep 5
+mariadb -u root -e "GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRANT OPTION;"
+sleep 5
 systemctl enable --now httpd2
  set +o history
  cat <<EOF > /tmp/ym.txt
