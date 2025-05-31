@@ -87,38 +87,49 @@ HQ-RTR	wiki.au-team.irpo	CNAME
 Выполняем	вход	из	под	пользователя	по	умолчанию	(admin/admin):
 
 HQ-RTR:
-(config)#hostname HQ-RTR (config)#ip domain-name au-team.irpo
+(config)#hostname HQ-RTR 
+(config)#ip domain-name au-team.irpo
 
 BR-RTR:
-(config)#hostname BR-RTR (config)#ip domain-name au-team.irpo
-
+(config)#hostname BR-RTR 
+(config)#ip domain-name au-team.irpo
 #show hostname
  
 Настроим интерфейс на HQ-RTR, который смотрит в сторону ISP, HQ-SRV, HQ-CLI и Management:
 (config)#interface int0
-(config-if)#description "to isp" (config-if)#ip address 172.16.4.14/28
+(config-if)#description "to isp" 
+(config-if)#ip address 172.16.4.14/28
 (config)#port te0
 (config-port)#service-instance te0/int0
-(config- service-instance)#encapsulation untagged (config)#interface int0
+(config- service-instance)#encapsulation untagged
+(config)#interface int0
 (config-if)#connect port te0 service-instance te0/int0
 
 (config)#interface int1
-(config-if)#description "to hq-srv" (config-if)#ip address 192.168.1.1/26 (config)#port te1
+(config-if)#description "to hq-srv" 
+(config-if)#ip address 192.168.1.1/26 
+(config)#port te1
 (config-port)#service-instance te1/int1
-(config- service-instance)#encapsulation dot1q 100 exact (config- service-instance)#rewrite pop 1 (config)#interface int1
+(config- service-instance)#encapsulation dot1q 100 exact 
+(config- service-instance)#rewrite pop 1
+(config)#interface int1
 (config-if)#connect port te1 service-instance te1/int1
 
 (config)#interface int2
-(config-if)#description "to hq-cli" (config-if)#ip address 192.168.1.65/28 (config)#port te1
+(config-if)#description "to hq-cli"
+(config-if)#ip address 192.168.1.65/28 
+(config)#port te1
 (config- port)#service-instance te1/int2
-(config- service-instance)#encapsulation dot1q 200 exact (config- service-instance)#rewrite pop 1 (config)#interface int2
+(config- service-instance)#encapsulation dot1q 200 exact 
+(config- service-instance)#rewrite pop 1 (config)#interface int2
 (config-if)#connect port te1 service-instance te1/int2
 
 (config)#interface int3
 (config-if)#description "to management" (config-if)#ip address 192.168.1.81/29
 (config)#port te1
 (config- port)#service-instance te1/int3
-(config- service-instance)#encapsulation dot1q 999 exact (config- service-instance)#rewrite pop 1
+(config- service-instance)#encapsulation dot1q 999 exact
+(config- service-instance)#rewrite pop 1
 (config)#interface int3
 (config-if)#connect port te1 service-instance te1/int3
 
@@ -129,21 +140,30 @@ HQ-RTR(config)#ip route 0.0.0.0/0 172.16.4.1
 #ping 8.8.8.8
 Настроим BR-RTR:
 #interface int0 #description "to isp"
-#ip address 172.16.5.14/28 #interface int1 #description "to br-srv" #ip address 192.168.0.1/27
+#ip address 172.16.5.14/28
+#interface int1 #description "to br-srv" 
+#ip address 192.168.0.1/27
 #port te0
-#service-instance te0/int0 #encapsulation untagged
+#service-instance te0/int0
+#encapsulation untagged
 #port te1
-#service-instance te1/int1 #encapsulation untagged
+#service-instance te1/int1 
+#encapsulation untagged
 #interface int0
-#connect port te0 service-instance te0/int0 #interface int1
-#connect port te1 service-instance te1/int1 #ip route 0.0.0.0/0 172.16.5.1
+#connect port te0 service-instance te0/int0 
+#interface int1
+#connect port te1 service-instance te1/int1 
+#ip route 0.0.0.0/0 172.16.5.1
 
 3. Создание локальных учетных записей на HQ и BR:
-#username net_admin #password P@$$word #role admin
+#username net_admin 
+#password P@$$word
+#role admin
 
 #show users localdb
 6.	Между офисами HQ и BR необходимо сконфигурировать IP-туннель HQ-RTR(config)#int tunnel.0
-(config-if-tunnel)#ip address 172.16.0.1/30 (config-if-tunnel)# ip mtu 1400
+(config-if-tunnel)#ip address 172.16.0.1/30 
+(config-if-tunnel)# ip mtu 1400
 (config-if-tunnel)#ip tunnel 172.16.4.14 172.16.5.14 mode gre
 Создаем интерфейс GRE-туннеля на BR-RTR:
 #int tunnel.0
@@ -155,23 +175,36 @@ HQ-RTR#ping 172.16.5.14
 7.	Обеспечьте динамическую маршрутизацию: ресурсы одного офиса должны быть доступны из другого офиса. Для обеспечения динамической маршрутизации используйте link state протокол на ваше усмотрение
 HQ-RTR(config)#router ospf 1
 (config-router)#router-id 1.1.1.1
-(config-router)#network 172.16.0.0/30 area 0 (config-router)#network 192.168.1.0/26 area 0 (config-router)#network 192.168.1.64/28 area 0 (config-router)#network 192.168.1.80/29 area 0 (config-router)#passive-interface default (config-router)#no passive-interface tunnel.0
+(config-router)#network 172.16.0.0/30 area 0
+(config-router)#network 192.168.1.0/26 area 0 
+(config-router)#network 192.168.1.64/28 area 0 
+(config-router)#network 192.168.1.80/29 area 0 
+(config-router)#passive-interface default 
+(config-router)#no passive-interface tunnel.0
 HQ-RTR(config)#interface tunnel.0
-(config-if-tunnel)#ip ospf authentication message-digest (config-if-tunnel)#ip ospf message-digest-key 1 md5 P@ssw0rd
+(config-if-tunnel)#ip ospf authentication message-digest 
+(config-if-tunnel)#ip ospf message-digest-key 1 md5 P@ssw0rd
 
 BR-RTR#router ospf 1
 #router-id 2.2.2.2
-#network 172.16.0.0/30 area 0 #network 192.168.0.0/27 area 0 #passive-interface default
-#no passive-interface tunnel.0 BR-RTR(config)#interface tunnel.0
+#network 172.16.0.0/30 area 0 
+#network 192.168.0.0/27 area 0 
+#passive-interface default
+#no passive-interface tunnel.0 
+BR-RTR(config)#interface tunnel.0
 (config-if-tunnel)#ip ospf authentication message-digest
 (config-if-tunnel)#ip ospf message-digest-key 1 md5 P@ssw0rd
 Проверка:
 #show ip route
 HQ-RTR#ping 192.168.0.1
 8.	Настройка динамической трансляции адресов Указываем внутренние и внешние интерфейсы:
-HQ-RTR(config)#int int1 (config-if)#ip nat inside (config)#int int2
-(config-if)#ip nat inside (config)#int int3
-(config-if)#ip nat inside (config)#int int0
+HQ-RTR(config)#int int1 
+(config-if)#ip nat inside
+(config)#int int2
+(config-if)#ip nat inside
+(config)#int int3
+(config-if)#ip nat inside
+(config)#int int0
 (config-if)#ip nat outside
 (config)#ip	nat	pool	NAT_POOL	192.168.1.1-
 192.168.1.62,192.168.1.65-192.168. 1.78,192.168.1.81-
@@ -196,7 +229,9 @@ BR-RTR(config)#int int1 #ip nat inside
 (config-dhcp-server)#pool cli_pool 1
 (config-dhcp-server)#mask 255.255.255.240
 (config-dhcp-server)#gateway 192.168.1.65
-(config-dhcp-server)#dns 192.168.1.62 (config-dhcp-server)#domain-name au-team.irpo (config)#interface int2
+(config-dhcp-server)#dns 192.168.1.62
+(config-dhcp-server)#domain-name au-team.irpo 
+(config)#interface int2
 (config-if)#dhcp-server 1
 Проверка:
 HQ-CLI – user / resu
