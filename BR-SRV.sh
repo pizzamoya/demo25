@@ -172,7 +172,7 @@ rm -rf /var/cache/samba
 mkdir -p /var/lib/samba/sysvol
 samba-tool domain provision --realm=au-team.irpo --domain=au-team --adminpass='P@ssw0rd' --dns-backend=SAMBA_INTERNAL --option="dns forwarder=77.88.8.8" --server-role=dc
 systemctl enable --now samba
-cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+cp -f /var/lib/samba/private/krb5.conf /etc/krb5.conf
 systemctl restart samba
 samba-tool domain info 127.0.0.1
 echo "search au-team.irpo" > /etc/net/ifaces/ens18/resolv.conf
