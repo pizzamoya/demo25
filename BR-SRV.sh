@@ -18,13 +18,6 @@ echo -e "P@ssw0rd\nP@ssw0rd" | passwd sshuser
 usermod -aG wheel sshuser
 echo "sshuser ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 cat <<EOF > /etc/openssh/sshd_config
-sed "s/#Port 22/Port 2024/' /etc/openssh/sshd_config
-sed '26i AllowUsers sshuser' /etc/openssh/sshd_config
-sed 's/#MaxAuthTries 6/MaxAuthTries 2/' /etc/openssh/sshd_config
-sed '105i Banner /etc/openssh/banner /etc/openssh/sshd_config
-echo "Authorized access only" > /etc/openssh/banner
- set +o history
-cat <<EOF > /etc/openssh/sshd_config
 #       $OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
 
 # This is the sshd server system-wide configuration file.  See
@@ -62,7 +55,7 @@ AllowUsers sshuser
 MaxAuthTries 2
 #MaxSessions 10
 
-#PubkeyAuthentication yes
+PubkeyAuthentication yes
 #PubkeyAcceptedKeyTypes ssh-ed25519-cert-v01@openssh.com,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa-cert-v01@openssh.com,ssh-rsa,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp521,ecdsa-sha2-nistp384,ecdsa-sha2-nistp256
 
 #AuthorizedKeysFile     /etc/openssh/authorized_keys/%u /etc/openssh/authorized_keys2/%u .ssh/authorized_keys .ssh/authorized_keys2
@@ -81,7 +74,7 @@ MaxAuthTries 2
 #IgnoreRhosts yes
 
 # To disable tunneled clear text passwords, change to no here!
-#PasswordAuthentication yes
+PasswordAuthentication yes
 #PermitEmptyPasswords no
 
 # Change to yes to enable s/key passwords
