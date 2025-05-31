@@ -29,7 +29,6 @@ sleep 240
 gpupdate-setup enable
 apt-get install -y admc
 apt-get install -y gpui
-kinit administrator@AU-TEAM.IRPO
 apt-get install -y libnss-role
 roleadd hq wheel
 sed 's/User_Alias      WHEEL_USERS = %wheel/User_Alias      WHEEL_USERS = %wheel, %AU-TEAM\\hq/' /etc/sudoers
@@ -38,7 +37,6 @@ sed '102i WHEEL_USERS ALL=(ALL:ALL) SHELLCMD' /etc/sudoers
 apt-get install -y admx-*
 admx-msi-setup
 sleep 240
-gpupdate -f 
 apt-get update && apt-get install -y nfs-{utils,clients}
 mkdir /mnt/nfs 
 chmod 777 /mnt/nfs 
@@ -56,5 +54,5 @@ cat <<EOF > /tmp/ym.txt
 5) Сервер chrony (chronyc clients);
 Затем удаляем 
 rm -rf /tmp/help.txt
-set -o history"
+gpupdate -f НЕ ЗАБЫТЬ 
 EOF
