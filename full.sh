@@ -12,6 +12,6 @@ if [ "$HOSTNAME" = br-srv.au-team.irpo ]; then
 echo "BR-SRV"
 fi
 if [ "$HOSTNAME" = hq-cli.au-team.irpo ]; then
-. demo25/HQ-CLI.sh
+. demo25/CLI.sh
 echo "HQ-CLI"
 fi
