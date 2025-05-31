@@ -13,7 +13,7 @@ rm -rf demo25
 set -o history
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 apt-get update
-useradd sshuser -u 1010 -m -s /bin/bash sshuser
+useradd -u 1010 -m -s /bin/bash sshuser
 echo -e "P@ssw0rd\nP@ssw0rd" | passwd sshuser
 usermod -aG wheel sshuser
 echo "sshuser ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -168,7 +168,7 @@ cat <<EOF >> /etc/resolv.conf
 nameserver 192.168.1.62
 nameserver 8.8.8.8
 EOF
-apt-get update && apt-get install -y task-samba-dc
+apt-get update && apt-get install -y task-samba-dc bind-utils
 for service in smb nmb krb5kdc slapd bind;
 do
  systemctl disable $service --now;
@@ -239,7 +239,7 @@ volumes:
   db:
 EOF
 docker compose -f wiki.yml up -d
-CAT <<EOF > /tpm/ym.txt
+CAT <<EOF > /tmp/ym.txt
 После настройки на hq -cli ввести это чтобы применить групповые политики
 admx-msi-setup
 echo "Что нужно заскринить: 1)hostname;
@@ -255,3 +255,4 @@ echo "Что нужно заскринить: 1)hostname;
 Затем удаляем 
 rm -rf /tmp/help.txt
 set -o history" 
+EOF
