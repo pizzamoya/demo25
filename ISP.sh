@@ -50,4 +50,4 @@ cat <<EOF > /tmp/ym.txt
 rm -rf /tmp/help.txt
 set -o history" 
 EOF
-
+sleep 3600
