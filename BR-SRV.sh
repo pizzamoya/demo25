@@ -208,7 +208,7 @@ ansible_python_interpreter=/usr/bin/python3
 EOF
 apt-get install -y docker-{engine,compose-v2}
 systemctl enable --now docker.service
-cat <<EOF > wiki.yml
+cat <<EOF > wiki.yml/$pwd
 services:
   Mediawiki:
     container_name: wiki
@@ -253,6 +253,6 @@ echo "Что нужно заскринить: 1)hostname;
 9) Проверка ансибла (ansible -m ping all);
 10) Медиа вики запущенный (docker ps);
 Затем удаляем 
-rm -rf /tmp/help.txt
+rm -rf /tmp/ym.txt
 set -o history" 
 EOF
