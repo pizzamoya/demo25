@@ -4,10 +4,15 @@ apt-get install -y php8.1 php8.1-{curl,fileinfo,fpm-fcgi,gd,intl,ldap,mbstring,m
 systemctl enable --now httpd2
 apt-get install -y MySQL-server
 systemctl enable --now mysqld
+sleep 3
 mysql -e "CREATE DATABASE moodledb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+sleep 3
 mysql -e "CREATE USER 'moodle'@'localhost' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd';"
-mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodledb.* TO 'moodle'@'localhost';
+sleep 3
+mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodledb.* TO 'moodle'@'localhost';"
+sleep 3
 mysql -e "EXIT;"
+sleep 3
 apt-get install -y git 
 git clone git://git.moodle.org/moodle.git
 cd moodle
