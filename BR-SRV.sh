@@ -193,9 +193,7 @@ do
   samba-tool user setexpiry user$i.hq --noexpiry;
   samba-tool group addmembers "hq" user$i.hq;
 done
-sleep 300
 apt-get install -y admx-*
-admx-msi-setup
 apt-get install -y ansible sshpass
 sed '14i\ inventory = /etc/ansible/hosts' /etc/ansible/ansible.cfg
 sed '15i\ host_key_checking = False' /etc/ansible/ansible.cfg
@@ -242,6 +240,8 @@ volumes:
 EOF
 docker compose -f wiki.yml up -d
 CAT <<EOF > /tpm/ym.txt
+После настройки на hq -cli ввести это чтобы применить групповые политики
+admx-msi-setup
 echo "Что нужно заскринить: 1)hostname;
 2) IP ADDRESS;
 3) Созданного пользователя (cat /etc/passwd);
