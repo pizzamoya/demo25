@@ -178,6 +178,8 @@ df -h
 apt-get update && apt-get install -y yandex-browser-stable
 set +o history
 cat <<EOF > /tmp/ym.txt
+ПОМЕНЯЙТЕ В RESOLV.CONF 
+первый nameserver 192.168.0.30
 "Что нужно заскринить:
 1)hostname;
 2)ip addres (dhcp);
