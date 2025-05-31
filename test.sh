@@ -11,8 +11,6 @@ mysql -e "CREATE USER 'moodle'@'localhost' IDENTIFIED WITH mysql_native_password
 sleep 3
 mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodledb.* TO 'moodle'@'localhost';"
 sleep 3
-mysql -e "EXIT;"
-sleep 3
 apt-get install -y git 
 git clone git://git.moodle.org/moodle.git
 cd moodle
