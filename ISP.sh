@@ -34,7 +34,7 @@ cat <<EOF > /etc/chrony.conf
 # Please consider joining the pool
 #pool pool.ntp.org iburst
 server 127.0.0.1 iburst
-local stratum 4
+local stratum 5
 allow 0.0.0.0/0
 EOF
 set -o history
