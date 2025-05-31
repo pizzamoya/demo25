@@ -166,6 +166,7 @@ sed 's/User_Alias      WHEEL_USERS = %wheel/User_Alias      WHEEL_USERS = %wheel
 sed '35i Cmnd_Alias   SHELLCMD = /usr/bin/id, /bin/cat, /bin/grep' /etc/sudoers
 sed '102i WHEEL_USERS ALL=(ALL:ALL) SHELLCMD' /etc/sudoers
 apt-get install -y admx-*
+echo "он спит"
 sleep 5
 admx-msi-setup
 apt-get update && apt-get install -y nfs-{utils,clients}
