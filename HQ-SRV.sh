@@ -9,6 +9,7 @@ usermod -aG wheel root
 apt-get remove -y git
 cd .. 
 rm -rf demo25
+timedatectl set-timezone Europe/Samara
 set -o history
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 apt-get update
