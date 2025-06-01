@@ -10,6 +10,7 @@ chmod +x test1.sh
 apt-get remove -y git
 cd .. 
 rm -rf demo25
+apt-get install -y tzdata
 timedatectl set-timezone Europe/Samara
 set -o history
 echo "search au-team.irpo" > /etc/net/ifaces/ens18/resolv.conf
@@ -178,6 +179,10 @@ mount -av
 df -h
 apt-get update && apt-get install -y yandex-browser-stable
 set +o history
+cat <<EOF > /etc/resolv.conf
+search au-team.irpo
+nameserver 192.168.0.30
+EOF
 cat <<EOF > /tmp/ym.txt
 ПОМЕНЯЙТЕ В RESOLV.CONF 
 первый nameserver 192.168.0.30
@@ -185,8 +190,10 @@ cat <<EOF > /tmp/ym.txt
 1)hostname;
 2)ip addres (dhcp);
 3) Настроенную сеть и айпишники;
-4) Правила в iptables (# iptables -t nat -L -n -V);
-5) Сервер chrony (chronyc clients);
+4) домен
+5) Сервер chrony (chronyc sources);
+6) moodle
+7) mediawiki
 Затем удаляем 
 rm -rf /tmp/help.txt
 gpupdate -f НЕ ЗАБЫТЬ 
