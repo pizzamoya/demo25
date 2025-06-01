@@ -177,6 +177,7 @@ mount -av
 df -h
 apt-get update && apt-get install -y yandex-browser-stable
 set +o history
+touch /mnt/nfs/Proverka
 cat <<EOF > /etc/resolv.conf
 search au-team.irpo
 nameserver 192.168.0.30
