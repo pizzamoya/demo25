@@ -10,6 +10,7 @@ chmod +x test1.sh
 apt-get remove -y git
 cd .. 
 rm -rf demo25
+timedatectl set-timezone Europe/Samara
 set -o history
 echo "search au-team.irpo" > /etc/net/ifaces/ens18/resolv.conf
 echo "nameserver 192.168.0.30" >> /etc/net/ifaces/ens18/resolv.conf
