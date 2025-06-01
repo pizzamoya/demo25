@@ -184,7 +184,7 @@ EOF
  set +o history
 cat <<EOF > /tmp/test1.txt
 Это после настройки медиавики чтобы скинуть php на br-srv
-scp /home/user/Downloads/LocalSettings.php root@192.168.0.30:/root/docker
+scp -P 2024 /home/user/Downloads/LocalSettings.php root@192.168.0.30:/root/docker
 EOF
 cat /tmp/test1.txt
 set -o history
