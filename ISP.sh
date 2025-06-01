@@ -37,6 +37,7 @@ server 127.0.0.1 iburst
 local stratum 5
 allow 0.0.0.0/0
 EOF
+apt-get install -y tzdata
 timedatectl set-timezone Europe/Samara
 set -o history
 systemctl restart chronyd
