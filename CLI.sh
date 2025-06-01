@@ -13,14 +13,11 @@ rm -rf demo25
 apt-get install -y tzdata
 timedatectl set-timezone Europe/Samara
 set -o history
-echo "search au-team.irpo" > /etc/net/ifaces/ens18/resolv.conf
-echo "nameserver 192.168.0.30" >> /etc/net/ifaces/ens18/resolv.conf
-echo "nameserver 192.168.1.62" >> /etc/net/ifaces/ens18/resolv.conf
-echo "nameserver 8.8.8.8" >> /etc/net/ifaces/ens18/resolv.conf
 systemctl restart network
 useradd -u 1010 -m -s /bin/bash sshuser
 echo -e "P@ssw0rd\nP@ssw0rd" | passwd sshuser
 usermod -aG wheel sshuser
+ set +o history
 cat <<EOF > /etc/openssh/sshd_config
 #       $OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
 
