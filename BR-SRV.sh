@@ -18,6 +18,7 @@ echo -e "P@ssw0rd\nP@ssw0rd" | passwd sshuser
 usermod -aG wheel sshuser
 echo "sshuser ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
  set +o history
+apt-get install -y tzdata
 timedatectl set-timezone Europe/Samara
 cat <<EOF > /etc/openssh/sshd_config
 #       $OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
