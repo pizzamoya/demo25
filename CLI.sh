@@ -48,6 +48,7 @@ Port 2024
 
 # Logging
 AllowUsers sshuser
+AllowUsers user
 #SyslogFacility AUTHPRIV
 #LogLevel INFO
 
