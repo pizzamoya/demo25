@@ -200,24 +200,25 @@ chmod 777 /raid5/nfs
 echo "/raid5/nfs 192.168.1.64/28(rw,no_root_squash)" >> /etc/exports
 exportfs -arv
 systemctl enable --now nfs-server
-apt-get update
 apt-get install -y moodle moodle-apache2
 apt-get install -y mariadb-server php8.2-mysqlnd-mysqli
 systemctl enable --now mariadb
-sleep 2
-mariadb -u root -е "CREATE DATABASE moodledb;"
-sleep 2
-mariadb -u root -e "CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';"
-sleep 2
+cat <<EOF > /tmp/modle.txt
+CREATE DATABASE moodledb;
+CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';
+GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRANT OPTION;
+EOF
+cat /tmp/modle.txt
+mariadb -u root
+sleep 5
 mariadb -u root -e "CREATE DATABASE moodledb;"
-sleep 2
-mariadb -u root -e "CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssword';"
-sleep 2
+sleep 5
+mariadb -u root -e "CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';"
+sleep 5
 mariadb -u root -e "GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRANT OPTION;"
-sleep 2
+sleep 5
 sed -i "s/; max_input_vars = 1000/max_input_vars = 5000/g" /etc/php/8.2/apache2-mod_php/php.ini
 systemctl enable --now httpd2
-
  cat <<EOF > /tmp/ym.txt
 "Что нужно заскринить:
 1)hostname;
