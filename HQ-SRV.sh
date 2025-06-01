@@ -199,47 +199,24 @@ chmod 777 /raid5/nfs
 echo "/raid5/nfs 192.168.1.64/28(rw,no_root_squash)" >> /etc/exports
 exportfs -arv
 systemctl enable --now nfs-server
-
-apt-get install -y apache2 apache2-{base,httpd-prefork,mod_php8.1,mods}
-apt-get install -y php8.1 php8.1-{curl,fileinfo,fpm-fcgi,gd,intl,ldap,mbstring,mysqlnd,mysqlnd-mysqli,opcache,soap,sodium,xmlreader,xmlrpc,zip,openssl}
+apt-get update
+apt-get install -y moodle moodle-apache2
+apt-get install -y mariadb-server php8.2-mysqlnd-mysqli
+systemctl enable --now mariadb
+sleep 2
+mariadb -u root -е "CREATE DATABASE moodledb;"
+sleep 2
+mariadb -u root -e "CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssw0rd';"
+sleep 2
+mariadb -u root -e "CREATE DATABASE moodledb;"
+sleep 2
+mariadb -u root -e "CREATE USER 'moodle'@'%' IDENTIFIED BY 'P@ssword';"
+sleep 2
+mariadb -u root -e "GRANT ALL PRIVILEGES ON moodledb.* TO 'moodle'@'%' WITH GRANT OPTION;"
+sleep 2
+sed -i "s/; max_input_vars = 1000/max_input_vars = 5000/g" /etc/php/8.2/apache2-mod_php/php.ini
 systemctl enable --now httpd2
-apt-get install -y MySQL-server
-systemctl enable --now mysqld
-sleep 3
-mysql -e "CREATE DATABASE moodledb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
-sleep 3
-mysql -e "CREATE USER 'moodle'@'localhost' IDENTIFIED WITH mysql_native_password BY 'P@ssw0rd';"
-sleep 3
-mysql -e "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodledb.* TO 'moodle'@'localhost';"
-sleep 3
-apt-get install -y git 
-git clone git://git.moodle.org/moodle.git
-cd moodle
-git branch -a
-git branch --track MOODLE_405_STABLE origin/MOODLE_405_STABLE
-git checkout MOODLE_405_STABLE
-cd ../
-cp -R moodle /var/www/html/
-mkdir /var/moodledata
-chown -R apache2 /var/moodledata
-chmod -R 777 /var/moodledata
-chmod -R 0755 /var/www/html/moodle
-chown -R apache2:apache2 /var/www/html/moodle
-cat <<EOF > /etc/httpd2/conf/sites-available/moodle.conf
-<VirtualHost *:80>
-        ServerName au-team.irpo
-        ServerAlias moodle.au-team.irpo
-        DocumentRoot /var/www/html/moodle
-        <Directory "/var/www/html/moodle">
-                AllowOverride All
-                Options -Indexes +FollowSymLinks
-        </Directory>
-</VirtualHost>
-EOF
-ln -s /etc/httpd2/conf/sites-available/moodle.conf /etc/httpd2/conf/sites-enabled/
-apachectl configtest
-sed -i "s/; max_input_vars = 1000/max_input_vars = 5000/g" /etc/php/8.1/apache2-mod_php/php.ini
-systemctl restart httpd2
+
  cat <<EOF > /tmp/ym.txt
 "Что нужно заскринить:
 1)hostname;
