@@ -22,6 +22,7 @@ sed 's/#MaxAuthTries 6/MaxAuthTries 2/' /etc/openssh/sshd_config
 sed '105i Banner /etc/openssh/banner' /etc/openssh/sshd_config
 echo "Authorized access only" > /etc/openssh/banner
  set +o history
+timedatectl set-timezone Europe/Moscow
 cat <<EOF > /etc/openssh/sshd_config
 #       $OpenBSD: sshd_config,v 1.103 2018/04/09 20:41:22 tj Exp $
 
