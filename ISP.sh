@@ -27,6 +27,32 @@ iptables -t nat -L
 iptables-save >> /etc/sysconfig/iptables
 systemctl enable --now iptables
 iptables -t nat -L -n -v
+apt-get update && apt-get install -y nginx
+
+cat >/etc/nginx/sites-available.d/proxy.conf <<'EOF'
+server {
+    listen 80;
+    server_name moodle.au-team.irpo;
+    location / {
+        proxy_pass http://192.168.1.62/moodle/;
+    }
+}
+
+server {
+    listen 80;
+    server_name wiki.au-team.irpo;
+    location / {
+        proxy_pass http://172.16.5.14;
+    }
+}
+EOF
+chmod 777 /etc/nginx/sites-available.d/proxy.conf
+ln -s /etc/nginx/sites-available.d/proxy.conf /etc/nginx/sites-enabled.d/
+nginx -t
+systemctl enable --now nginx
+systemctl reload nginx
+echo "127.0.0.1 moodle.au-team.irpo" >> /etc/hosts
+echo "172.16.4.1 wiki.au-team.irpo" >> /etc/hosts
 apt-get install chrony -y
  set +o history
 cat <<EOF > /etc/chrony.conf
@@ -48,6 +74,7 @@ cat <<EOF > /tmp/ym.txt
 3) Настроенную сеть и айпишники;
 4) Правила в iptables (# iptables -t nat -L -n -V);
 5) Сервер chrony (chronyc clients);
+6) Конфиг proxy (cat /etc/nginx/sites-available.d/proxy.conf);
 Затем удаляем 
 rm -rf /tmp/help.txt
 set -o history" 
