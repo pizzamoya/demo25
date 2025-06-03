@@ -266,6 +266,7 @@ hostnamectl hostname hq-cli.au-team.irpo; exec bash
 HQ-RTR:
 hq-rtr(config)#ntp server 172.16.4.1
 hq-rtr(config)#security none
+hq-rtr(config)#ip nat source static tcp 192.168.1.62 80 172.16.4.14 80
 hq-rtr(config)#ip nat source static tcp 192.168.1.62 2024 172.16.4.14 2024
 hq-rtr(config)#write memory
 Building configuration...
