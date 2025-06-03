@@ -145,8 +145,10 @@ BR-RTR:
 HQ-RTR(config)#ip route 0.0.0.0/0 172.16.4.1
  
 Проверка:
-#show port #show port brief #show interface
-#show service-instance brief #show ip interface br
+#show port #show port brief
+#show interface
+#show service-instance brief
+#show ip interface br
 #ping 8.8.8.8
 
 Настроим BR-RTR:
@@ -184,7 +186,8 @@ HQ-RTR:
 
 Создаем интерфейс GRE-туннеля на BR-RTR:
 #int tunnel.0
-#ip address 172.16.0.2/30 #ip mtu 1400
+#ip address 172.16.0.2/30
+#ip mtu 1400
 #ip tunnel 172.16.5.14 172.16.4.14 mode gre
  
 Проверка:
