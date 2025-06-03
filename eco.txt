@@ -150,9 +150,11 @@ HQ-RTR(config)#ip route 0.0.0.0/0 172.16.4.1
 #ping 8.8.8.8
 
 Настроим BR-RTR:
-#interface int0 #description "to isp"
+#interface int0
+#description "to isp"
 #ip address 172.16.5.14/28
-#interface int1 #description "to br-srv" 
+#interface int1
+#description "to br-srv" 
 #ip address 192.168.0.1/27
 #port te0
 #service-instance te0/int0
@@ -224,7 +226,7 @@ HQ-RTR(config)#int int1
 (config)#int int0
 (config-if)#ip nat outside
 (config)#ip nat pool NAT_POOL 192.168.1.1-192.168.1.62,192.168.1.65-192.168.1.78,192.168.1.81-192.168.1.87
-(config)#ip	nat	source dynamic inside-to-outside pool NAT_POOL overload interface int0
+(config)#ip nat source dynamic inside-to-outside pool NAT_POOL overload interface int0
 
 Настройка NAT на BR-RTR
 BR-RTR(config)#int int1
