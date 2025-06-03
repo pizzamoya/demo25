@@ -88,8 +88,8 @@ BR-RTR	br-rtr.au-team.irpo	A
 HQ-SRV	hq-srv.au-team.irpo	A,PTR
 HQ-CLI	hq-cli.au-team.irpo	A,PTR
 BR-SRV	br-srv.au-team.irpo	A
-HQ-RTR	moodle.au-team.irpo	CNAME
-HQ-RTR	wiki.au-team.irpo	CNAME
+ISP TO HQ-SRV	moodle.au-team.irpo	A
+ISP TO BR-SRV	wiki.au-team.irpo	A
 
 Выполняем	вход	из	под	пользователя	по	умолчанию	(admin/admin):
 
