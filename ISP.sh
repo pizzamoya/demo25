@@ -51,8 +51,6 @@ ln -s /etc/nginx/sites-available.d/proxy.conf /etc/nginx/sites-enabled.d/
 nginx -t
 systemctl enable --now nginx
 systemctl reload nginx
-echo "127.0.0.1 moodle.au-team.irpo" >> /etc/hosts
-echo "172.16.4.1 wiki.au-team.irpo" >> /etc/hosts
 apt-get install chrony -y
  set +o history
 cat <<EOF > /etc/chrony.conf
