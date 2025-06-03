@@ -176,8 +176,6 @@ host-record=hq-srv.au-team.irpo,192.168.1.62
 host-record=hq-cli.au-team.irpo,192.168.1.66
 address=/br-rtr.au-team.irpo/192.168.0.1
 address=/br-srv.au-team.irpo/192.168.0.30
-cname=moodle.au-team.irpo,hq-rtr.au-team.irpo
-cname=wiki.au-team.irpo,hq-rtr.au-team.irpo
 EOF
 cat <<EOF > /etc/chrony.conf
 # Use public server from the pool
