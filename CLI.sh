@@ -225,8 +225,8 @@ cat <<EOF > /tmp/ym.txt
 3) Настроенную сеть и айпишники;
 4) домен
 5) Сервер chrony (chronyc sources);
-6) moodle
-7) mediawiki
+6) moodle вместе с их url
+7) mediawiki вместе с их url
 Затем удаляем 
 rm -rf /tmp/help.txt
 gpupdate -f НЕ ЗАБЫТЬ 
