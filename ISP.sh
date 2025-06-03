@@ -34,7 +34,7 @@ server {
     listen 80;
     server_name moodle.au-team.irpo;
     location / {
-        proxy_pass http://192.168.1.62/moodle/;
+        proxy_pass http://172.16.4.14/moodle/;
     }
 }
 
